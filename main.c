@@ -25,15 +25,8 @@ void printElement(any value, int index) {
 }
 
 int main() {
-    Array* array = __PUBLIC(Array, generate)((ArrayGenerateCallback) &randInt, 10, 20, 1);
-
-    int i;
-    for (i = 0; i < 10; i++) {
-        print("The element at index %d is %d", i, __PUBLIC(Array, get)(array, i));
-    }
-
-    __PUBLIC(Array, forEach)(array, (ArrayCallback) &printElement);
-
-    __DESTRUCT(Array)(array);
+    Array* array = Array_generate((ArrayGenerateCallback) &randInt, 10, 20, 1);
+    Array_forEach(array, (ArrayCallback) &printElement);
+    Array_destroy(array);
     return 0;
 }

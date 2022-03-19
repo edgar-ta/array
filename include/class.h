@@ -10,18 +10,18 @@
 /** allocates an instance **/
 #define MALLOC(className) className* instance = (className*) malloc(sizeof(className))
 
-/** name of public method **/
+/** name of "public" method **/
 #define __PUBLIC(className, methodName) className##_##methodName
-/** name of hidden method **/
+/** name of "private" method **/
 #define __PRIVATE(className, methodName) __CONCAT(__##className, _##methodName)
 /** parameter list that adds a "self" parameter; a "self list" **/
 #define __SLFLST(className, ...) (className* self, ##__VA_ARGS__)
 
-/** defines a public method **/
+/** defines a "public" method **/
 #define PUBLIC(className, methodName, ...) __PUBLIC(className, methodName) __SLFLST(className, ##__VA_ARGS__)
-/** defines a static method **/
+/** defines a "static" method **/
 #define STATIC(className, methodName, ...) __PUBLIC(className, methodName)(__VA_ARGS__)
-/** defines a static method **/
+/** defines a "private" method **/
 #define PRIVATE(className, methodName, ...) __PRIVATE(className, methodName) __SLFLST(className, ##__VA_ARGS__)
 
 /** name of a constructor **/
@@ -29,10 +29,10 @@
 /** name of a destructor **/
 #define __DESTRUCT(className) className##_destroy
 
+/** defines a constructor **/
 #define CONSTRUCTOR(className, ...) className* __CONSTRUCT(className)(__VA_ARGS__)
+/** defines a destructor **/
 #define DESTRUCTOR(className, ...) void __DESTRUCT(className) __SLFLST(className, ##__VA_ARGS__)
-#define EXTENDS(className) typedef struct { className* className; } Extends##className
-
 /** "default constructor" **/
 #define DEF_CONSTRUCTOR(className) CONSTRUCTOR(className) { MALLOC(className); return instance; }
 /** "default destructor" **/
