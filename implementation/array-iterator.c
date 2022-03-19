@@ -13,9 +13,7 @@ void PRIVATE(ArrayIterator, advance) {
 }
 
 any PUBLIC(ArrayIterator, next) {
-    any value = self->root->value;
-    __PRIVATE(ArrayIterator, advance)(self);
-    return value;
+    return __PUBLIC(ArrayIterator, nextNode)(self)->value;
 }
 
 ArrayNode* PUBLIC(ArrayIterator, nextNode) {
