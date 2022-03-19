@@ -61,7 +61,7 @@ void PRIVATE(Array, moveTo, int dynamicIndex) {
 }
 
 ArrayIterator* PUBLIC(Array, iterator) {
-    ArrayIterator* instance = __PUBLIC(ArrayIterator, new)(self->head);
+    ArrayIterator* instance = __CONSTRUCT(ArrayIterator)(self->head);
     return instance;
 }
 
@@ -96,7 +96,7 @@ bool STATIC(Array, lesserByMagnitude, int a, int b) {
 // START::STANDARD-METHODS::START
 
 void PUBLIC(Array, push, any value) {
-    ArrayNode* arrayNode = __PUBLIC(ArrayNode, new)(value);
+    ArrayNode* arrayNode = __CONSTRUCT(ArrayNode)(value);
     __PUBLIC(ArrayNode, bind)(self->tail, arrayNode);
     if (__PUBLIC(Array, empty)(self)) {
         self->head = arrayNode;
@@ -108,7 +108,7 @@ void PUBLIC(Array, push, any value) {
 }
 
 void PUBLIC(Array, unshift, any value) {
-    ArrayNode* arrayNode = __PUBLIC(ArrayNode, new)(value);
+    ArrayNode* arrayNode = __CONSTRUCT(ArrayNode)(value);
     __PUBLIC(ArrayNode, bind)(arrayNode, self->head);
     if (__PUBLIC(Array, empty)(self)) {
         self->tail = arrayNode;
@@ -170,7 +170,7 @@ Array* PUBLIC(Array, reduce, ArrayReduceCallback callback, any initialValue) {
 }
 
 Array* PUBLIC(Array, map, ArrayCallback callback) {
-    Array* mapped = __PUBLIC(Array, new)();
+    Array* mapped = __CONSTRUCT(Array)();
     ArrayIterator* iterator = __PUBLIC(Array, iterator)(self);
     int i = 0;
     while (__PUBLIC(ArrayIterator, hasNext)(iterator)) {
