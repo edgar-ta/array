@@ -146,7 +146,7 @@ void PUBLIC(Array, clear) {
         ArrayNode* current = __PUBLIC(ArrayIterator, nextNode)(iterator);
         __PUBLIC(ArrayNode, destroy)(current);
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
     self->head = NULL;
     self->tail = NULL;
     self->current = NULL;
@@ -166,7 +166,7 @@ Array* PUBLIC(Array, reduce, ArrayReduceCallback callback, any initialValue) {
         any current = __PUBLIC(ArrayIterator, next)(iterator);
         previous = callback(previous, current, i++);
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
 }
 
 Array* PUBLIC(Array, map, ArrayCallback callback) {
@@ -178,7 +178,7 @@ Array* PUBLIC(Array, map, ArrayCallback callback) {
         any result = callback(value, i++);
         __PUBLIC(Array, push)(self, result);
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
     return mapped;
 }
 
@@ -192,7 +192,7 @@ any PUBLIC(Array, find, ArrayCallback callback) {
             return current;
         }
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
     return NULL;
 }
 
@@ -206,7 +206,7 @@ bool PUBLIC(Array, some, ArrayCallback callback) {
             return true;
         }
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
     return false;
 }
 
@@ -220,19 +220,19 @@ bool PUBLIC(Array, every, ArrayCallback callback) {
             return false;
         }
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
     return true;
 }
 
 void PUBLIC(Array, forEach, ArrayCallback callback) {
     callback = (void (*)(any, int)) callback;
-    ArrayIterator* iterator = __PUBLIC(Array, iterator)(self);;
+    ArrayIterator* iterator = __PUBLIC(Array, iterator)(self);
     int i = 0;
     while (__PUBLIC(ArrayIterator, hasNext)(iterator)) {
         any current = __PUBLIC(ArrayIterator, next)(iterator);
         callback(current, i++);
     }
-    __PUBLIC(ArrayIterator, destroy)(iterator);
+    __DESTRUCT(ArrayIterator)(iterator);
 }
 // END::JAVASCRIPT-LIKE-METHODS::END
 // ---------------------------------
