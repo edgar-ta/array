@@ -40,7 +40,7 @@ void PRIVATE(Array, moveTo, int dynamicIndex) {
     int parsedIndex = __PUBLIC(Array, parseIndex)(self, dynamicIndex);
 
     if (!__PUBLIC(Array, inBounds)(self, parsedIndex)) {
-        print("Index out of bounds: %d", parsedIndex);
+        printf("Index out of bounds: %d\n", parsedIndex);
         exit(1);
         return;
     }

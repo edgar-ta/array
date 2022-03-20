@@ -8,6 +8,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdio.h>
 
 typedef struct Array {
     ArrayNode *head, *tail, *current;
